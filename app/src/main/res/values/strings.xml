@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">My Summoner</string>
+    <string name="api_key">9bb441f1-39a7-4bee-8ce2-9dece7720d1b</string>
+    <string-array name="regions">
+        <item>NA</item>
+        <item>EUNE</item>
+        <item>EUW</item>
+        <item>KR</item>
+        <item>BR</item>
+        <item>LAN</item>
+        <item>LAS</item>
+        <item>OCE</item>
+        <item>PBE</item>
+        <item>RU</item>
+        <item>TR</item>
+    </string-array>
+</resources>
