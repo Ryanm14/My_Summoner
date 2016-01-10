@@ -6,6 +6,7 @@ import android.os.StrictMode;
 
 import com.pixplicity.easyprefs.library.Prefs;
 import com.robrua.orianna.api.core.RiotAPI;
+import com.robrua.orianna.type.api.LoadPolicy;
 
 import timber.log.Timber;
 
@@ -32,13 +33,12 @@ public class App extends Application {
                     .detectAll()
                     .penaltyLog()
                     .build());
-
+           // Picasso.with(this).setLoggingEnabled(true);
             Timber.d("Strict mode and Timber initialized");
         } else {
             // TODO Crashlytics.start(this);
             // TODO Timber.plant(new CrashlyticsTree());
         }
-        // TODO: 11/28/2015 Change and save Regions and Strict Mode
         new Prefs.Builder()
                 .setContext(this)
                 .setMode(ContextWrapper.MODE_PRIVATE)
@@ -46,6 +46,8 @@ public class App extends Application {
                 .setUseDefaultSharedPreference(true)
                 .build();
         RiotAPI.setAPIKey(getString(R.string.api_key));
+        RiotAPI.setLoadPolicy(LoadPolicy.UPFRONT);
+        //RiotAPI.setRateLimit(new RateLimit(3000, 10), new RateLimit(180000, 600));
 
 
     }

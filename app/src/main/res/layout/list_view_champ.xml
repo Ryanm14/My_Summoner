@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/champ_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="10"/>
+
+    <LinearLayout
+        android:id="@+id/champ_name_cs_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/champ_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            tools:text="Graves"/>
+
+        <TextView
+            android:id="@+id/avg_cs_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#c2707070"
+            tools:text="250CS"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/kda_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/kda_to_one_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="2.84:1KDA"/>
+
+        <TextView
+            android:id="@+id/kda_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#c2707070"
+            tools:text="7.0 / 2.1 / 11.4"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/win_rate_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/percent_win_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="57%"/>
+
+        <TextView
+            android:id="@+id/games_played_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#c2707070"
+            tools:text="89 played"/>
+    </LinearLayout>
+</LinearLayout>

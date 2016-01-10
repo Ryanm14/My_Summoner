@@ -6,4 +6,5 @@ package me.ryanmiles.mysummoner.data;
 public class Constants {
     public static final String NAME = "name";
     public static final String REGION = "region";
+    public static final String ADD = "add";
 }

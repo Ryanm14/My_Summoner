@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:ads="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -9,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border">
+
 
         <ImageView
             android:id="@+id/summoner_icon_image_view"
@@ -45,8 +47,15 @@
                 android:textSize="20sp"
                 tools:text="Silver 1"/>
 
+
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/loading_top_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/Black"
                 android:textSize="20sp"
                 tools:text="Level: 30"/>
@@ -67,231 +77,70 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/Black"
-                android:textSize="20sp"
+                android:textSize="13sp"
                 tools:text="Region: NA"/>
+
         </LinearLayout>
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/loading_top_champ_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_info"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true"/>
     <LinearLayout
-        android:id="@+id/win_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/top_info"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/border"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wins"
-
-                android:textColor="@color/Black"
-                android:textSize="25sp"/>
-
-            <TextView
-                android:id="@+id/won_games_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/DarkGreen"
-                android:textSize="30sp"
-                tools:text="25"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Losses"
-                android:textColor="@color/Black"
-                android:textSize="25sp"/>
-
-            <TextView
-                android:id="@+id/lost_games_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/DarkRed"
-                android:textSize="30sp"
-                tools:text="50"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Total"
-                android:textColor="@color/Black"
-                android:textSize="25sp"/>
-
-            <TextView
-                android:id="@+id/total_games_tezt_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/Gray"
-                android:textSize="30sp"
-                tools:text="100"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Win Ratio"
-                android:textColor="@color/Black"
-                android:textSize="25sp"/>
-
-            <TextView
-                android:id="@+id/win_ratio_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/Purple"
-                android:textSize="30sp"
-                tools:text="50%"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/killing_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/win_info"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/border"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:text="Top 5 Most Played Champions"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
+        <ListView
+            android:id="@+id/top_champions"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:drawable="@drawable/border">
+        </ListView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Double Kills"
-                    android:textColor="@color/Black"
-                    android:textSize="20sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="Win Rate When You Get"/>
 
-                <TextView
-                    android:id="@+id/double_kills_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/Black"
-                    android:textSize="35sp"
-                    tools:text="25"/>
-            </LinearLayout>
+        <GridView
+            android:id="@+id/grid_view_summoner_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="4">
+        </GridView>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Triple Kills"
-                    android:textColor="@color/Black"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/triple_kills_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/Black"
-                    android:textSize="35sp"
-                    tools:text="50"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Quada Kills"
-                    android:textColor="@color/Black"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/quada_kills_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/Black"
-                    android:textSize="30sp"
-                    tools:text="100"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Penta Kills"
-                    android:textColor="@color/Black"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/penta_kills_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/Black"
-                    android:textSize="30sp"
-                    tools:text="100"/>
-            </LinearLayout>
-        </LinearLayout>
-
+        <ProgressBar
+            android:id="@+id/loading_match_stats_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"/>
     </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
 </RelativeLayout>

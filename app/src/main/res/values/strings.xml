@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">My Summoner</string>
     <string name="api_key">9bb441f1-39a7-4bee-8ce2-9dece7720d1b</string>
+    <string name="banner_ad_unit_id">ca-app-pub-9558546731862068/6669552435</string>
     <string-array name="regions">
         <item>NA</item>
         <item>EUNE</item>

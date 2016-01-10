@@ -5,16 +5,22 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.pixplicity.easyprefs.library.Prefs;
-import com.robrua.orianna.api.core.RiotAPI;
-import com.robrua.orianna.type.core.common.Region;
 
 import de.greenrobot.event.EventBus;
 import me.ryanmiles.mysummoner.data.Constants;
 import me.ryanmiles.mysummoner.data.RiotApiHelper;
 import me.ryanmiles.mysummoner.events.BaseInfo;
 import me.ryanmiles.mysummoner.events.BasicInfo;
+import me.ryanmiles.mysummoner.events.ErrorSummonerName;
+import me.ryanmiles.mysummoner.events.ExceptionHandle;
+import me.ryanmiles.mysummoner.events.MatchStats;
+import me.ryanmiles.mysummoner.events.TopChampions;
 import me.ryanmiles.mysummoner.fragments.DialogInfoFragment;
 import me.ryanmiles.mysummoner.fragments.SummonerInfoFragment;
 import me.ryanmiles.mysummoner.model.MySummoner;
@@ -38,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
             summonerInfoFragment(savedInstanceState);
         }
 
+
     }
+
 
     private void summonerInfoFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
@@ -53,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRiotApi() {
         new MySummoner().setName(Prefs.getString(Constants.NAME, ""));
-        RiotAPI.setRegion(Region.valueOf(Prefs.getString(Constants.REGION, "")));
         MySummoner.setRegion(Prefs.getString(Constants.REGION, ""));
         RiotApiHelper.setVersion();
     }
@@ -65,9 +72,20 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("unused")
     public void onEventMainThread(BasicInfo basicInfo) {
-        Timber.d("onEventMainThread() called with: " + "basicInfo = [" + basicInfo + "]");
         mSummonerInfoFragment.updateBasicInfo();
     }
+
+    @SuppressWarnings("unused")
+    public void onEventMainThread(TopChampions topChampions) {
+        mSummonerInfoFragment.updateTopChampions();
+    }
+
+    @SuppressWarnings("unused")
+    public void onEventMainThread(MatchStats matchStats) {
+        mSummonerInfoFragment.updateMatchStats();
+        Toast.makeText(this, "Data Updated!", Toast.LENGTH_SHORT).show();
+    }
+
 
     @SuppressWarnings("unused")
     public void onEventMainThread(BaseInfo baseInfo) {
@@ -76,6 +94,17 @@ public class MainActivity extends AppCompatActivity {
         Prefs.putString(Constants.REGION, baseInfo.getRegion());
         initRiotApi();
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @SuppressWarnings("unused")
+    public void onEventMainThread(ErrorSummonerName errorSummonerName) {
+        Toast.makeText(this, "Check Summoner Name!", Toast.LENGTH_LONG).show();
+    }
+
+    @SuppressWarnings("unused")
+    public void onEventMainThread(ExceptionHandle e) {
+        Timber.e(String.valueOf(e));
+        Toast.makeText(this, e.getErrorString(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -89,6 +118,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                RiotApiHelper.getBasicInfo();
+                return true;
+
+            case R.id.action_change_summoner:
+                showInfoDialog();
+                return true;
+            case R.id.action_toggle_ads:
+                if (Prefs.getString(Constants.ADD, "true").equals("true")) {
+                    Prefs.putString(Constants.ADD, "false");
+                    Toast.makeText(MainActivity.this, "Ads Disabled!", Toast.LENGTH_LONG).show();
+                } else {
+                    Prefs.putString(Constants.ADD, "true");
+                    Toast.makeText(MainActivity.this, "Ads Enabled <3", Toast.LENGTH_LONG).show();
+                }
+                mSummonerInfoFragment.setupAdds();
+
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 }
