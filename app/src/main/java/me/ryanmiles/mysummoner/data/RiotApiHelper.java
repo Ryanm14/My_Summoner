@@ -97,7 +97,7 @@ public class RiotApiHelper {
                     begin = MySummoner.getGamesWon() + MySummoner.getGamesLost() - 10;
                 }
                 List<MatchReference> matches = summoner.getMatchList();
-                for (int i = 0; i < 8; i++) {
+                for (int i = 0; i < 15; i++) {
                     MatchReference match = matches.get(i);
                     long champId = match.getChampionID();
                     long matchId = match.getID();
