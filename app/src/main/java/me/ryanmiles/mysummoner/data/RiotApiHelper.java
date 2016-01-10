@@ -92,10 +92,6 @@ public class RiotApiHelper {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                int begin = 0;
-                if (MySummoner.getGamesWon() + MySummoner.getGamesLost() > 10) {
-                    begin = MySummoner.getGamesWon() + MySummoner.getGamesLost() - 10;
-                }
                 List<MatchReference> matches = summoner.getMatchList();
                 for (int i = 0; i < 15; i++) {
                     MatchReference match = matches.get(i);
@@ -172,18 +168,20 @@ public class RiotApiHelper {
     private static void setChampStats(ArrayList<ChampionStats> top5Champs) {
         Timber.d("setChampStats() called with: " + "top5Champs = [" + top5Champs + "]");
         for (ChampionStats top5champ : top5Champs) {
-            MyChampion myChampion = new MyChampion();
-            AggregatedStats asStats = top5champ.getStats();
-            myChampion.setName(top5champ.getChampion().getName());
-            myChampion.setImage(top5champ.getChampion().getImage().getFull());
-            myChampion.setGames_played(asStats.getTotalGamesPlayed());
-            myChampion.setGames_won(asStats.getTotalWins());
-            myChampion.setGames_lost(asStats.getTotalLosses());
-            myChampion.setTotal_assists(asStats.getTotalAssists());
-            myChampion.setTotal_deaths(asStats.getTotalDeaths());
-            myChampion.setTotal_kills(asStats.getTotalKills());
-            myChampion.setTotal_creep_kills(asStats.getTotalMinionKills());
-            MySummoner.addChamp(myChampion);
+            if (top5champ != null) {
+                MyChampion myChampion = new MyChampion();
+                AggregatedStats asStats = top5champ.getStats();
+                myChampion.setName(top5champ.getChampion().getName());
+                myChampion.setImage(top5champ.getChampion().getImage().getFull());
+                myChampion.setGames_played(asStats.getTotalGamesPlayed());
+                myChampion.setGames_won(asStats.getTotalWins());
+                myChampion.setGames_lost(asStats.getTotalLosses());
+                myChampion.setTotal_assists(asStats.getTotalAssists());
+                myChampion.setTotal_deaths(asStats.getTotalDeaths());
+                myChampion.setTotal_kills(asStats.getTotalKills());
+                myChampion.setTotal_creep_kills(asStats.getTotalMinionKills());
+                MySummoner.addChamp(myChampion);
+            }
         }
         Timber.d("setChampStats() returned");
     }
