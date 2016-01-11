@@ -4,12 +4,10 @@ import android.app.Application;
 import android.content.ContextWrapper;
 import android.os.StrictMode;
 
-import com.crashlytics.android.Crashlytics;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.api.RateLimit;
 
-import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 /**
@@ -37,8 +35,6 @@ public class App extends Application {
                     .build());
            // Picasso.with(this).setLoggingEnabled(true);
             Timber.d("Strict mode and Timber initialized");
-        } else {
-            Fabric.with(this, new Crashlytics());
         }
         new Prefs.Builder()
                 .setContext(this)

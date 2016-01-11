@@ -14,6 +14,7 @@ import com.crashlytics.android.Crashlytics;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import de.greenrobot.event.EventBus;
+import io.fabric.sdk.android.Fabric;
 import me.ryanmiles.mysummoner.data.Constants;
 import me.ryanmiles.mysummoner.data.RiotApiHelper;
 import me.ryanmiles.mysummoner.events.BaseInfo;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initCrashlyticsInfo() {
+        Fabric.with(this, new Crashlytics());
         Crashlytics.setUserIdentifier(MySummoner.getName() + ":" + MySummoner.getRegion());
         Crashlytics.setString(Constants.NAME, MySummoner.getName());
         Crashlytics.setString(Constants.REGION, MySummoner.getRegion());
